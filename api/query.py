@@ -19,7 +19,7 @@ from urllib.parse import quote
 
 ## Variable Initialization
 LOCAL_CACHE = {} # store variable
-CACHE_DURATION = 3 # in sec.
+CACHE_DURATION = 3600 # in sec.
 
 # Route Defining
 @app.route('/', defaults={'path': ''})
