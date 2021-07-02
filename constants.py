@@ -23,7 +23,7 @@ APPIDS = [
 ]
 
 def get_app_id():
-    return APPIDS[time() * 1000 % len(APPIDS)]
+    return APPIDS[int((time() * 1000) % len(APPIDS))]
 
 def makeResponse(data=None, error=None, code=200, cache_hit=False):
     """
