@@ -1,4 +1,4 @@
-from time import time_ns
+from time import time
 from flask import request, Response
 from json import dumps
 
@@ -23,7 +23,7 @@ APPIDS = [
 ]
 
 def get_app_id():
-    return APPIDS[time_ns() % len(APPIDS)]
+    return APPIDS[time() * 1000 % len(APPIDS)]
 
 def makeResponse(data=None, error=None, code=200, cache_hit=False):
     """
