@@ -3,6 +3,7 @@ from flask import request, Response
 from json import dumps
 
 QUERY_URL = "https://api.wolframalpha.com/v2/query?appid={appID}&input={input}&podstate=Step-by-step+solution&podstate=Step-by-step&podstate=Show+all+steps&scantimeout={timeout}"
+AUTOCOMPLETE_URL = "https://www.wolframalpha.com/n/v1/api/autocomplete/?i={input}"
 
 APPIDS = [
     '26LQEH-YT3P6T3YY9',
