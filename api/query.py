@@ -13,7 +13,9 @@ CORS(app) # Enabling CORS globally
 ## Other Imports
 from time import time
 from traceback import print_exc
-from constants import makeResponse
+from constants import makeResponse, QUERY_URL, get_app_id
+from requests import get
+from urllib.parse import quote
 
 ## Variable Initialization
 LOCAL_CACHE = {} # store variable
@@ -53,13 +55,26 @@ def hello(path):
             print("[FAILURE_RECOVERING] Processing the request as if nothing was cached")
 
 
-
-
         # Processing and Computation
         result = None # the result should in this variable
 
+        if "question" not in request.values:
+            return makeResponse({"message": "'question' is required"}, error="MISSING_ARGUMENT", code=400)
+        
+        question = request.values.get("question")
+        timeout = request.values.get("timeout", 20)
+
+        try:
+            timeout = int(timeout)
+        except Exception:
+            return makeResponse({"message": "'timeout' needs to be an integer"}, error="WRONG_TYPE", code=400)
 
 
+        response = get(QUERY_URL.format(appID=get_app_id(), input=quote(question, safe=''), timeout=str(timeout)))
+        if response.status_code >= 400:
+            return makeResponse({"message": "WolframAlpha returned a {code} error".format(code=str(response.status_code))}, error="WOLFRAMALPHA_ERROR", code=500)
+        
+        result = response.text
 
         # Caching and Response
         LOCAL_CACHE[cache_key] = {"timestamp": time(), "data": result}
