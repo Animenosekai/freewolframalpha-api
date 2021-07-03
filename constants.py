@@ -4,6 +4,8 @@ from json import dumps
 
 QUERY_URL = "https://api.wolframalpha.com/v2/query?appid={appID}&input={input}&podstate=Step-by-step+solution&podstate=Step-by-step&podstate=Show+all+steps&scantimeout={timeout}"
 AUTOCOMPLETE_URL = "https://www.wolframalpha.com/n/v1/api/autocomplete/?i={input}"
+RECALCULATION_URL = "https://{host}/api/v1/recalc.jsp?id={id}"
+RELATEDQUERIES_URL = "https://{host}/api/v1/relatedQueries.jsp?id={id}"
 
 APPIDS = [
     '26LQEH-YT3P6T3YY9',
