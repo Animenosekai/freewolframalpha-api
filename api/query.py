@@ -63,6 +63,7 @@ def hello(path):
         
         question = request.values.get("question")
         timeout = request.values.get("timeout", 20)
+        podstate = request.values.get("podstate")
 
         try:
             timeout = int(timeout)
@@ -70,7 +71,7 @@ def hello(path):
             return makeResponse({"message": "'timeout' needs to be an integer"}, error="WRONG_TYPE", code=400)
 
 
-        response = get(QUERY_URL.format(appID=get_app_id(), input=quote(question, safe=''), timeout=str(timeout)))
+        response = get(QUERY_URL.format(appID=get_app_id(), input=quote(question, safe=''), timeout=str(timeout), podstate=podstate))
         if response.status_code >= 400:
             return makeResponse({"message": "WolframAlpha returned a {code} error".format(code=str(response.status_code))}, error="WOLFRAMALPHA_ERROR", code=500)
         
